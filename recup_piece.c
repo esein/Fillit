@@ -6,7 +6,7 @@
 /*   By: gcadiou <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 02:26:46 by gcadiou           #+#    #+#             */
-/*   Updated: 2016/12/01 09:53:52 by gcadiou          ###   ########.fr       */
+/*   Updated: 2016/12/02 04:50:00 by gcadiou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,16 @@
 #include "libft.h"
 
 #define BUF_SIZE 21
-#define L_SIZE 10
+#define L_SIZE 139
 #define I_SIZE 5
 
-static void	*file_error(char c, char **tab)
+void		file_error(char c, char **tab)
 {
-	ft_memdel((void **)tab);
+	if(tab)
+		ft_memdel((void **)tab);
 	ft_putchar(c);
 	ft_putendl("error");
-	return (0);
+	exit()
 }
 
 char		**check_file(int fd)
@@ -32,7 +33,7 @@ char		**check_file(int fd)
 	char	**tab;
 	size_t	ret;
 	char	buf[BUF_SIZE + 1];
-	size_t	l = 0;
+	size_t	l;
 	size_t	i= 0;
 	size_t	count = 0;
 
@@ -44,6 +45,7 @@ char		**check_file(int fd)
 	}
 	while ((ret = read(fd, buf, BUF_SIZE)))
 	{
+		l = 0;
 		if (ret == 20)
 		{
 			if((ret = read(fd, buf, BUF_SIZE)))
